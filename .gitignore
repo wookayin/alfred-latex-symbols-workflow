@@ -1,0 +1,5 @@
+workflow/.bundle
+workflow/bundle
+workflow/Gemfile.lock
+workflow/workflow
+.ruby-version

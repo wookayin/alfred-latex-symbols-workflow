@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>kr.wook.alfred-latex-symbols-workflow</string>
+	<key>connections</key>
+	<dict>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>42D05639-3F0F-4760-8214-317167E4173D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Jongwook Choi</string>
+	<key>description</key>
+	<string>LaTeX Symbols</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>LaTeX Symbols</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>keyword</key>
+				<string>tex</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./main.rb {query}</string>
+				<key>title</key>
+				<string>Search LaTeX Symbols</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>21557827-8003-42B7-A042-16D4C9278FEC</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Ruby Script</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>42D05639-3F0F-4760-8214-317167E4173D</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>42D05639-3F0F-4760-8214-317167E4173D</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://github.com/wookayin/alfred-latex-symbols-workflow</string>
+</dict>
+</plist>
