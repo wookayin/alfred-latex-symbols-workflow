@@ -11,20 +11,30 @@ rescue LoadError
 end
 require "alfred"
 
+# Load LaTeX symbols (Latex::Symbol)
+require_relative 'symbol'
 
 query = ARGV[0]
 
 Alfred.with_friendly_error do |alfred|
   fb = alfred.feedback
 
-  # DUMMY
-  fb.add_item({
-    :uid => "",
-    :title => query,
-    :subtitle => "Subtitle " + query,
-    :arg => "Notified " + query,
-    :valid => "yes"
-  })
+  filtered_symbols = Latex::Symbol::ExtendedList.reject do |k, v|
+    not v.command.start_with? ('\\' + query)
+  end # as hash
+
+  # Print all prefix-matched symbols
+  filtered_symbols.each do |k, v|
+    fb.add_item({
+      :uid => k,
+      :title => v.command,
+      :subtitle => [(v.package.nil? ? "" : "Package " + v.package),
+                    (v.mathmode ? "(math mode)" : "")
+                   ].join(' '),
+      :arg => "Notified " + v.command,
+      :valid => "yes"
+    })
+  end
 
   puts fb.to_xml(ARGV)
 end
