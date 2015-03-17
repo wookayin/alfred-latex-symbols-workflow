@@ -10,7 +10,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>42D05639-3F0F-4760-8214-317167E4173D</string>
+				<string>E2ABE273-8D1A-4CF1-AD81-B5F4D7CF7A9D</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -66,25 +66,15 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
+				<key>autopaste</key>
 				<true/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>text</key>
+				<key>clipboardtext</key>
 				<string>{query}</string>
-				<key>title</key>
-				<string>Ruby Script</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
-			<string>42D05639-3F0F-4760-8214-317167E4173D</string>
+			<string>E2ABE273-8D1A-4CF1-AD81-B5F4D7CF7A9D</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -98,7 +88,7 @@
 			<key>ypos</key>
 			<real>250</real>
 		</dict>
-		<key>42D05639-3F0F-4760-8214-317167E4173D</key>
+		<key>E2ABE273-8D1A-4CF1-AD81-B5F4D7CF7A9D</key>
 		<dict>
 			<key>ypos</key>
 			<real>250</real>

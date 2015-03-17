@@ -31,7 +31,7 @@ Alfred.with_friendly_error do |alfred|
       :subtitle => [(v.package.nil? ? "" : "Package " + v.package),
                     (v.mathmode ? "(math mode)" : "")
                    ].join(' '),
-      :arg => "Notified " + v.command,
+      :arg => v.command,
       :valid => "yes"
     })
   end
