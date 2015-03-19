@@ -27,13 +27,15 @@ Alfred.with_friendly_error do |alfred|
 
   # Print all prefix-matched symbols
   filtered_symbols.each do |k, v|
+    uid = v.filename
     fb.add_item({
-      :uid => k,
+      :uid => uid,
       :title => v.command,
       :subtitle => [(v.package.nil? ? "" : "Package " + v.package),
                     (v.mathmode ? "(math mode)" : "")
                    ].join(' '),
       :arg => v.command,
+      :icon => {:name => "icons/#{uid}.png".downcase, :type => 'file'},
       :valid => "yes"
     })
   end
