@@ -15,23 +15,27 @@ require "alfred"
 require_relative 'symbol'
 
 query = ARGV[0]
+if query.nil? then query = '' end
+query = query.downcase
 
 Alfred.with_friendly_error do |alfred|
   fb = alfred.feedback
 
   filtered_symbols = Latex::Symbol::ExtendedList.reject do |k, v|
-    not v.command.start_with? ('\\' + query)
+    not v.command.downcase.start_with? ('\\' + query)
   end # as hash
 
   # Print all prefix-matched symbols
   filtered_symbols.each do |k, v|
+    uid = v.filename
     fb.add_item({
-      :uid => k,
+      :uid => uid,
       :title => v.command,
       :subtitle => [(v.package.nil? ? "" : "Package " + v.package),
                     (v.mathmode ? "(math mode)" : "")
                    ].join(' '),
       :arg => v.command,
+      :icon => {:name => "icons/#{uid}.png".downcase, :type => 'file'},
       :valid => "yes"
     })
   end
