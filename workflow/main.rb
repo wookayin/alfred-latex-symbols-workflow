@@ -16,17 +16,24 @@ require_relative 'symbol'
 
 query = ARGV[0]
 if query.nil? then query = '' end
-query = query.downcase
+query = Regexp.escape(query.downcase).delete('\\')
+query_r = /#{query}/i
 
 Alfred.with_friendly_error do |alfred|
-  fb = alfred.feedback
+  # the matching procedure can be boosted up using efficient algorithms
+  # such as trie, Aho-Corasick, etc., but naive ones work too :-)
 
-  filtered_symbols = Latex::Symbol::ExtendedList.reject do |k, v|
-    not v.command.downcase.start_with? ('\\' + query)
-  end # as hash
+  matched_symbols = Latex::Symbol::List.select { |v|
+    vcd = v.command.downcase
+    vcd.delete('\\').match(query_r)
+  } .sort_by { |v|
+    vcd = v.command.downcase.delete('\\')
+    [vcd.start_with?(query) ? -1 : 1, vcd]
+  }
 
   # Print all prefix-matched symbols
-  filtered_symbols.each do |k, v|
+  fb = alfred.feedback
+  matched_symbols.each do |v|
     uid = v.filename
     fb.add_item({
       :uid => uid,
