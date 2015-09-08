@@ -7,6 +7,8 @@
 #
 # @author Jongwook Choi <wookayin@gmail.com>
 # @author Daniel Kirsch <danishkirel@gmail.com>
+# Modifications by:
+# Pennati Lucas <lucas.pennati@gmail.com>
 
 require 'fileutils'
 require 'tmpdir'
@@ -61,6 +63,7 @@ def symbol_to_icon(symbol)
 
     # (3) define_single_image_task
     t = "#{File.join(OUTDIR, symbol.filename)}.png"
+    t_white = "#{File.join(OUTDIR, symbol.filename)}_white.png"
     dpi = ENV['DPI'] || 600
     gamma = ENV['GAMMA'] || 1
 
@@ -72,6 +75,8 @@ def symbol_to_icon(symbol)
     # (4) adjust size and put it at center
     iconsize = ENV['ICONSIZE'] || '64x64'
     res = system "mogrify -resize '#{iconsize}\>' -extent '#{iconsize}' -background transparent -gravity center -format png #{t} > /dev/null"
+    # Invert the colors of the image to produce the white version
+    system "convert #{t} -negate #{t_white}"
     if ! res
       exitcode = $?.exitstatus
       FileUtils.rm(t) # delete raw png
