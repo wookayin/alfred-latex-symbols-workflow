@@ -1,0 +1,25 @@
+{
+  "name": "alfred-latex-symbols",
+  "version": "1.0.0",
+  "description": "Alfred workflow to find LaTeX commands for symbols",
+  "author": {
+    "name": "Jongwook Choi",
+    "url": "https://github.com/wookayin"
+  },
+  "main": "index.js",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/wookayin/alfred-latex-symbols-workflow",
+    "type": "git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "alfy": "^0.12.1",
+    "js-yaml": "^4.1.0"
+  },
+  "homepage": "https://github.com/wookayin/alfred-latex-symbols-workflow",
+  "keywords": [
+    "Alfred",
+    "Alfred workflow"
+  ]
+}

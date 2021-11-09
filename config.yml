@@ -1,9 +1,0 @@
-# bundle_id = "domain.id"
-# path is the relative path to the workflow in the project root
----
-path: workflow
-domain: kr.wook
-id: alfred-latex-symbols-workflow
-# If you are using Alfred's advanced Dropbox sync, indicate the path shown in
-# Alfred Preferences > Advanced > Syncing:
-dropbox: ~/Dropbox/Alfred
