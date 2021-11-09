@@ -15,7 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "alfy": "^0.12.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "match-sorter": "^6.3.1"
   },
   "homepage": "https://github.com/wookayin/alfred-latex-symbols-workflow",
   "keywords": [

@@ -8,6 +8,7 @@ import alfy from 'alfy';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import crypto from 'crypto';
+import {matchSorter} from 'match-sorter';
 
 function md5hash(s) {
   return crypto.createHash('md5').update(s).digest('hex');
@@ -55,6 +56,8 @@ const query = function() {
 
   var results = alfy
     .matches(alfy.input, symbols_data, 'command');
+
+  results = matchSorter(results, '\\' + alfy.input, {keys: ['command']})
   //console.log(results);
 
   return results.map(v => ({
