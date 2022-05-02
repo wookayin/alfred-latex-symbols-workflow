@@ -121,6 +121,6 @@
     <key>webaddress</key>
     <string>https://github.com/wookayin/alfred-latex-symbols-workflow</string>
     <key>version</key>
-    <string>1.1.dev</string>
+    <string>1.1.0</string>
   </dict>
 </plist>

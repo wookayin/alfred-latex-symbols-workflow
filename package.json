@@ -1,6 +1,6 @@
 {
   "name": "alfred-latex-symbols",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Alfred workflow to find LaTeX commands for symbols",
   "author": {
     "name": "Jongwook Choi",
