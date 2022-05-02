@@ -14,7 +14,7 @@ require 'shellwords'
 require 'thread'
 require 'rake/tasklib'
 require 'erb'
-require 'parallel'   # gem install parallel
+require 'parallel'   # gem install [--user-install] parallel
 
 require_relative 'symbol'
 
@@ -24,19 +24,21 @@ FileUtils.mkdir_p OUTDIR
 TEMPLATE = ERB.new <<-LATEX
   \\documentclass[10pt]{article}
   \\usepackage[utf8]{inputenc}
+  \\usepackage{color}
 
   <%= @packages %>
 
   \\pagestyle{empty}
   \\begin{document}
 
+  \\color{<%= @color %>}
   <%= @command %>
 
   \\end{document}
 LATEX
 
 # Library: symbol -> icon
-def symbol_to_icon(symbol)
+def symbol_to_icon(symbol, color)
   Dir.mktmpdir do |tmpdir|
     tmpfile_basename = File.join(tmpdir, symbol.filename)
 
@@ -48,6 +50,7 @@ def symbol_to_icon(symbol)
         @packages << "\\usepackage{#{symbol[:package]}}\n" if symbol[:package]
         @packages << "\\usepackage[#{symbol[:fontenc]}]{fontenc}\n" if symbol[:fontenc]
         @command = symbol.mathmode ? "$#{symbol.command}$" : symbol.command
+        @color = color
         # write symbol to tempfile
         texfile.puts TEMPLATE.result(binding)
     end
@@ -60,7 +63,7 @@ def symbol_to_icon(symbol)
     end
 
     # (3) define_single_image_task
-    t = "#{File.join(OUTDIR, symbol.filename)}.png"
+    t = "#{File.join(OUTDIR, color, symbol.filename)}.png"
     dpi = ENV['DPI'] || 600
     gamma = ENV['GAMMA'] || 1
 
@@ -80,7 +83,7 @@ def symbol_to_icon(symbol)
   end
 
   # return filename of generated png
-  return "#{File.join(OUTDIR, symbol.filename)}.png"
+  return "#{File.join(OUTDIR, color, symbol.filename)}.png"
 end
 
 
@@ -93,22 +96,25 @@ putslock = Mutex.new
 
 Parallel.each_with_index(Latex::Symbol::List, :in_threads => n_threads) do |v, index|
   next unless v.command.start_with? '\\'
-  uid = v.filename
-  quote = (v.mathmode ? '$' : '')
-  output_file = "#{OUTDIR}/#{uid}.png".downcase # lowercase
 
-  if File.exist?(output_file) then
+  ['white', 'black'].each do |color|
+    uid = v.filename
+    quote = (v.mathmode ? '$' : '')
+    output_file = "#{OUTDIR}/#{color}/#{uid}.png".downcase # lowercase
+
+    if File.exist?(output_file) then
+      putslock.synchronize {
+        puts "[#{index}/#{n_symbols}] #{v.command.ljust(20)} : #{output_file} (Skipped)"
+      }
+      next
+    end
+
+    generated_file = symbol_to_icon(v, color)
+    raise unless generated_file == output_file
+
     putslock.synchronize {
-      puts "[#{index}/#{n_symbols}] #{v.command.ljust(20)} : #{output_file} (Skipped)"
+      puts "[#{index}/#{n_symbols}] #{v.command.ljust(20)} : #{generated_file} was generated"
     }
-    next
   end
-
-  generated_file = symbol_to_icon(v)
-  raise unless generated_file == output_file
-
-  putslock.synchronize {
-    puts "[#{index}/#{n_symbols}] #{v.command.ljust(20)} : #{generated_file} was generated"
-  }
 
 end

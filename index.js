@@ -9,6 +9,11 @@ import yaml from 'js-yaml';
 import fs from 'fs';
 import crypto from 'crypto';
 import {matchSorter} from 'match-sorter';
+import Color from 'color';
+
+// Detect alfred light/dark theme.
+const iconColor = new Color(alfy.alfred.themeBackground || "white").isDark() ? 'white' : 'black';
+
 
 function md5hash(s) {
   return crypto.createHash('md5').update(s).digest('hex');
@@ -67,7 +72,7 @@ const query = function() {
       v.mathmode ? "(math mode)" : '',
     ].join(' '),
     icon: {
-      path: `icons/${v.filename}.png`,
+      path: `icons/${iconColor}/${v.filename}.png`,
     },
     arg: v.command,
   }));

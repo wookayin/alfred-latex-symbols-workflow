@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "alfy": "^0.12.1",
+    "color": "^4.2.3",
     "js-yaml": "^4.1.0",
     "match-sorter": "^6.3.1"
   },
